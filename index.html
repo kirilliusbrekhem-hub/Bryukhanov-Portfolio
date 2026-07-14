@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кирилл Брюханов — Web Designer | Сайты, логотипы, дизайн для бизнеса</title>
+<meta name="description" content="Кирилл Брюханов — дизайнер сайтов, логотипов и продающих карточек товаров. Создаю современные цифровые продукты, которые помогают бизнесу расти.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236C5CE7'/%3E%3Cstop offset='1' stop-color='%233B82F6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='42' fill='none' stroke='url(%23g)' stroke-width='10'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;
+    --bg-alt:#111111;
+    --bg-card:#0d0d0f;
+    --white:#FFFFFF;
+    --silver:#A0A0A0;
+    --silver-dim:#6b6b70;
+    --accent-a:#6C5CE7;
+    --accent-b:#3B82F6;
+    --gradient: linear-gradient(120deg, var(--accent-a), var(--accent-b));
+    --border: rgba(255,255,255,0.08);
+    --display: 'Manrope', sans-serif;
+    --body: 'Inter', sans-serif;
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:var(--body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent-a);color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1200px;margin:0 auto;padding:0 32px;}
+  section{position:relative;padding:140px 0;}
+  @media (max-width:768px){section{padding:90px 0;}}
+
+  .eyebrow{
+    font-family:var(--body);
+    font-size:12px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent-b);
+    font-weight:600;
+    margin-bottom:20px;
+    display:inline-block;
+  }
+  h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-0.02em;}
+  .section-title{
+    font-size:clamp(32px,4.4vw,52px);
+    line-height:1.08;
+    margin-bottom:20px;
+  }
+  .section-sub{
+    color:var(--silver);
+    font-size:17px;
+    max-width:560px;
+    line-height:1.6;
+  }
+  .grad-text{
+    background:var(--gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:22px 0;
+    background:rgba(5,5,5,0);
+    backdrop-filter:blur(0px);
+    transition:background .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(5,5,5,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:18px;
+    letter-spacing:-0.02em;
+  }
+  .logo span{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:var(--gradient);margin-right:8px;
+    box-shadow:0 0 14px var(--accent-a);
+  }
+  .nav-links{display:flex;gap:36px;}
+  .nav-links a{
+    font-size:14px;color:var(--silver);font-weight:500;
+    transition:color .25s;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{
+    padding:10px 22px;border-radius:100px;
+    background:var(--white);color:#000;
+    font-size:13px;font-weight:600;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,0.15);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+  .burger span{width:22px;height:2px;background:#fff;display:block;transition:.3s;}
+  .mobile-menu{
+    position:fixed;inset:0;background:rgba(5,5,5,0.98);backdrop-filter:blur(20px);
+    z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+    opacity:0;visibility:hidden;transform:translateY(-12px);
+    transition:opacity .35s var(--ease), transform .35s var(--ease), visibility .35s;
+  }
+  .mobile-menu.open{opacity:1;visibility:visible;transform:translateY(0);}
+  .mobile-menu a{font-family:var(--display);font-size:26px;font-weight:600;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .nav-cta{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;
+    position:relative;
+    padding-top:120px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;width:100%;
+  }
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-canvas-wrap{height:340px;order:-1;}
+  }
+  .hero h1{
+    font-size:clamp(36px,5.4vw,66px);
+    line-height:1.06;
+    margin-bottom:26px;
+  }
+  .hero-sub{
+    color:var(--silver);
+    font-size:18px;
+    max-width:480px;
+    line-height:1.65;
+    margin-bottom:40px;
+  }
+  .hero-sub b{color:var(--white);font-weight:600;}
+  .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    padding:16px 30px;border-radius:100px;
+    font-size:14px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;
+    cursor:pointer;border:none;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s;
+  }
+  .btn-primary{
+    background:var(--gradient);color:#fff;
+    box-shadow:0 0 0 rgba(108,92,231,0);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(108,92,231,0.35);filter:brightness(1.08);}
+  .btn-ghost{
+    background:transparent;color:#fff;
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.2);transform:translateY(-3px);}
+  .hero-canvas-wrap{
+    position:relative;height:560px;
+  }
+  #hero-canvas{width:100%;height:100%;display:block;}
+  .hero-glow{
+    position:absolute;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle, rgba(108,92,231,0.35), transparent 70%);
+    top:50%;left:50%;transform:translate(-50%,-50%);
+    filter:blur(40px);pointer-events:none;z-index:-1;
+  }
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--silver-dim);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  }
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--silver-dim),transparent);
+    animation:scrollline 1.8s ease-in-out infinite;}
+  @keyframes scrollline{0%{opacity:.2;}50%{opacity:1;}100%{opacity:.2;}}
+
+  /* reveal utility */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;
+  }
+  @media (max-width:768px){.about-grid{grid-template-columns:1fr;}}
+  .about-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+    padding:34px 28px;transition:transform .35s var(--ease), border-color .35s;
+  }
+  .about-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.18);}
+  .about-icon{font-size:28px;margin-bottom:18px;display:block;}
+  .about-card h3{font-size:18px;margin-bottom:10px;font-weight:600;}
+  .about-card p{color:var(--silver);font-size:14px;line-height:1.6;}
+
+  /* ---------- SERVICES ---------- */
+  .tabs{display:flex;gap:10px;margin:44px 0 36px;flex-wrap:wrap;}
+  .tab{
+    padding:10px 20px;border-radius:100px;border:1px solid var(--border);
+    font-size:13px;font-weight:600;color:var(--silver);cursor:pointer;
+    transition:.3s;background:transparent;
+  }
+  .tab.active{background:var(--white);color:#000;border-color:var(--white);}
+  .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media (max-width:1024px){.price-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.price-grid{grid-template-columns:1fr;}}
+  .price-panel{display:none;}
+  .price-panel.active{display:grid;}
+  .price-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+    padding:32px 26px;position:relative;overflow:hidden;
+    transition:transform .35s var(--ease), border-color .35s, box-shadow .35s;
+  }
+  .price-card::before{
+    content:'';position:absolute;inset:0;opacity:0;
+    background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(108,92,231,0.14), transparent 60%);
+    transition:opacity .35s;pointer-events:none;
+  }
+  .price-card:hover::before{opacity:1;}
+  .price-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,0.2);box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .price-card .pname{font-size:15px;color:var(--silver);margin-bottom:14px;font-weight:500;}
+  .price-card .pval{
+    font-family:var(--display);font-size:32px;font-weight:800;margin-bottom:18px;
+  }
+  .price-card ul{margin-bottom:0;}
+  .price-card li{
+    font-size:13px;color:var(--silver);padding:7px 0;border-top:1px solid var(--border);
+  }
+  .price-card li:first-child{border-top:none;}
+
+  /* ---------- PRICING (tariffs) ---------- */
+  .tariff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px;}
+  @media (max-width:900px){.tariff-grid{grid-template-columns:1fr;}}
+  .tariff-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:24px;
+    padding:40px 32px;position:relative;
+    transition:transform .35s var(--ease), border-color .35s;
+  }
+  .tariff-card:hover{transform:translateY(-8px);}
+  .tariff-card.popular{
+    border-color:transparent;
+    background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box,
+               var(--gradient) border-box;
+    border:1px solid transparent;
+  }
+  .badge{
+    position:absolute;top:-13px;left:32px;
+    background:var(--gradient);color:#fff;font-size:11px;font-weight:700;
+    padding:6px 14px;border-radius:100px;letter-spacing:.04em;
+  }
+  .tariff-card h3{font-size:20px;margin-bottom:22px;}
+  .tariff-card .incl{margin-bottom:26px;}
+  .tariff-card .incl li{
+    font-size:14px;color:var(--silver);padding:9px 0;display:flex;gap:10px;align-items:flex-start;
+  }
+  .tariff-card .incl li::before{content:'—';color:var(--accent-b);flex-shrink:0;}
+  .tariff-price{font-family:var(--display);font-size:34px;font-weight:800;margin-bottom:22px;}
+  .tariff-card .btn{width:100%;justify-content:center;}
+
+  /* ---------- PORTFOLIO ---------- */
+  .filter-row{display:flex;gap:10px;margin:40px 0;flex-wrap:wrap;}
+  .portfolio-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  @media (max-width:900px){.portfolio-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.portfolio-grid{grid-template-columns:1fr;}}
+  .p-item{
+    aspect-ratio:4/5;border-radius:18px;overflow:hidden;position:relative;cursor:pointer;
+    background:var(--bg-card);border:1px solid var(--border);
+  }
+  .p-item .p-fill{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+    transition:transform .5s var(--ease);
+  }
+  .p-item:hover .p-fill{transform:scale(1.06);}
+  .p-item .p-tag{
+    position:absolute;bottom:18px;left:18px;font-size:12px;color:var(--silver);
+    letter-spacing:.08em;text-transform:uppercase;
+  }
+  .p-item .p-plus{
+    font-size:34px;color:rgba(255,255,255,0.4);font-family:var(--display);font-weight:300;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .timeline{position:relative;margin-top:64px;padding-left:0;}
+  .t-line{
+    position:absolute;left:23px;top:12px;bottom:12px;width:2px;
+    background:var(--border);
+  }
+  .t-line-fill{
+    position:absolute;left:0;top:0;width:100%;height:0%;
+    background:var(--gradient);transition:height 1.4s var(--ease);
+  }
+  .t-step{display:flex;gap:28px;padding:28px 0;position:relative;}
+  .t-num{
+    width:48px;height:48px;border-radius:50%;flex-shrink:0;
+    background:var(--bg-card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:16px;z-index:1;
+  }
+  .t-step.active .t-num{background:var(--gradient);border-color:transparent;box-shadow:0 0 24px rgba(108,92,231,0.5);}
+  .t-body h3{font-size:19px;margin-bottom:8px;}
+  .t-body p{color:var(--silver);font-size:14px;max-width:480px;line-height:1.6;}
+
+  /* ---------- TERMS ---------- */
+  .terms-box{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:24px;
+    padding:48px;margin-top:44px;
+  }
+  .terms-lead{font-family:var(--display);font-size:22px;font-weight:700;margin-bottom:30px;}
+  .terms-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:700px){.terms-list{grid-template-columns:1fr;}.terms-box{padding:32px 24px;}}
+  .terms-list li{display:flex;gap:12px;font-size:14px;color:var(--silver);align-items:flex-start;}
+  .terms-list li .check{
+    width:20px;height:20px;border-radius:50%;background:var(--gradient);
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews-track-wrap{overflow:hidden;margin-top:48px;}
+  .reviews-track{display:flex;gap:20px;width:max-content;}
+  .review-card{
+    width:340px;flex-shrink:0;
+    background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px;
+  }
+  .review-stars{color:var(--accent-b);font-size:14px;margin-bottom:14px;letter-spacing:2px;}
+  .review-text{font-size:14px;color:var(--silver);line-height:1.7;margin-bottom:20px;}
+  .review-who{display:flex;align-items:center;gap:12px;}
+  .review-avatar{
+    width:38px;height:38px;border-radius:50%;background:var(--gradient);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;
+  }
+  .review-name{font-size:14px;font-weight:600;}
+  .review-city{font-size:12px;color:var(--silver-dim);}
+
+  /* ---------- CONTACT ---------- */
+  .contact-wrap{
+    text-align:center;position:relative;
+  }
+  .contact-wrap .section-title{margin:0 auto 18px;}
+  .contact-wrap .section-sub{margin:0 auto 46px;}
+  .contact-buttons{
+    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  }
+  .contact-card{
+    display:flex;align-items:center;gap:12px;
+    padding:16px 26px;border-radius:100px;border:1px solid var(--border);
+    font-size:14px;font-weight:600;transition:.3s var(--ease);
+  }
+  .contact-card:hover{border-color:rgba(255,255,255,0.25);transform:translateY(-3px);background:rgba(255,255,255,0.04);}
+  .contact-dot{width:8px;height:8px;border-radius:50%;background:var(--gradient);}
+
+  footer{
+    border-top:1px solid var(--border);padding:40px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  footer p{color:var(--silver-dim);font-size:13px;}
+
+  .to-top{
+    position:fixed;bottom:28px;right:28px;z-index:900;
+    width:46px;height:46px;border-radius:50%;
+    background:var(--bg-card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    opacity:0;visibility:hidden;transform:translateY(10px);
+    transition:.35s var(--ease);
+  }
+  .to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+  .to-top:hover{border-color:rgba(255,255,255,0.25);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container">
+    <nav>
+      <a href="#top" class="logo"><span></span>Кирилл Брюханов</a>
+      <div class="nav-links">
+        <a href="#about">Обо мне</a>
+        <a href="#services">Услуги</a>
+        <a href="#pricing">Тарифы</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#reviews">Отзывы</a>
+      </div>
+      <a href="#contact" class="nav-cta">Обсудить проект</a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">Обо мне</a>
+  <a href="#services">Услуги</a>
+  <a href="#pricing">Тарифы</a>
+  <a href="#portfolio">Портфолио</a>
+  <a href="#reviews">Отзывы</a>
+  <a href="#contact">Контакты</a>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow reveal">Web Designer</span>
+        <h1 class="reveal" id="heroTitle">Создаю цифровые продукты, которые помогают <span class="grad-text">бизнесу расти</span></h1>
+        <p class="hero-sub reveal">Я <b>Кирилл Брюханов</b> — дизайнер сайтов, логотипов и продающих карточек товаров. Помогаю компаниям выглядеть профессионально и выделяться среди конкурентов.</p>
+        <div class="hero-buttons reveal">
+          <a href="#portfolio" class="btn btn-primary">Посмотреть работы</a>
+          <a href="#contact" class="btn btn-ghost">Обсудить проект</a>
+        </div>
+      </div>
+      <div class="hero-canvas-wrap reveal">
+        <div class="hero-glow"></div>
+        <canvas id="hero-canvas"></canvas>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>Скролл</span><span class="line"></span></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <span class="eyebrow reveal">Кто я?</span>
+      <h2 class="section-title reveal">Дизайн, который работает <br class="lg-only">на результат бизнеса</h2>
+      <p class="section-sub reveal">Я создаю современные сайты, фирменный стиль и дизайн для бизнеса. Каждый проект — это баланс эстетики и конверсии.</p>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <span class="about-icon">🌐</span>
+          <h3>Веб-дизайн</h3>
+          <p>Лендинги, сайты-визитки и многостраничные сайты, которые выглядят дорого и продают.</p>
+        </div>
+        <div class="about-card reveal">
+          <span class="about-icon">🎨</span>
+          <h3>Брендинг</h3>
+          <p>Логотипы и фирменный стиль, которые формируют доверие с первого взгляда.</p>
+        </div>
+        <div class="about-card reveal">
+          <span class="about-icon">🛒</span>
+          <h3>Marketplace Design</h3>
+          <p>Карточки товаров для маркетплейсов, повышающие CTR и продажи.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <span class="eyebrow reveal">Услуги</span>
+      <h2 class="section-title reveal">Выберите то, что нужно <br class="lg-only">именно вам</h2>
+      <p class="section-sub reveal">От посадочной страницы до полноценного интернет-магазина — под любую задачу бизнеса.</p>
+
+      <div class="tabs reveal">
+        <button class="tab active" data-tab="sites">Сайты</button>
+        <button class="tab" data-tab="logos">Логотипы</button>
+        <button class="tab" data-tab="cards">Карточки товаров</button>
+      </div>
+
+      <div class="price-panel active" data-panel="sites">
+        <div class="price-grid">
+          <div class="price-card reveal"><div class="pname">Лендинг</div><div class="pval">3 990 ₽</div>
+            <ul><li>Одна посадочная страница</li><li>Адаптивная вёрстка</li><li>Форма заявки</li></ul></div>
+          <div class="price-card reveal"><div class="pname">Сайт-визитка</div><div class="pval">4 990 ₽</div>
+            <ul><li>До 3 разделов</li><li>Адаптивная вёрстка</li><li>Интеграция с мессенджерами</li></ul></div>
+          <div class="price-card reveal"><div class="pname">Многостраничный сайт</div><div class="pval">7 990 ₽</div>
+            <ul><li>До 6 разделов</li><li>Уникальная структура</li><li>SEO-разметка</li></ul></div>
+          <div class="price-card reveal"><div class="pname">Интернет-магазин</div><div class="pval">8 990 ₽</div>
+            <ul><li>Каталог товаров</li><li>Корзина и оформление заказа</li><li>Адаптивная вёрстка</li></ul></div>
+        </div>
+      </div>
+
+      <div class="price-panel" data-panel="logos">
+        <div class="price-grid">
+          <div class="price-card reveal"><div class="pname">BASIC</div><div class="pval">799 ₽</div>
+            <ul><li>1 концепция</li><li>2 правки</li><li>Файлы PNG / JPG</li></ul></div>
+          <div class="price-card reveal"><div class="pname">STANDARD</div><div class="pval">1 790 ₽</div>
+            <ul><li>3 варианта</li><li>6 правок</li><li>Цветовая версия</li></ul></div>
+          <div class="price-card reveal"><div class="pname">PREMIUM</div><div class="pval">3 490 ₽</div>
+            <ul><li>5 концепций</li><li>Фирменная палитра</li><li>Файлы SVG / PDF</li></ul></div>
+        </div>
+      </div>
+
+      <div class="price-panel" data-panel="cards">
+        <div class="price-grid">
+          <div class="price-card reveal"><div class="pname">1 слайд</div><div class="pval">499 ₽</div>
+            <ul><li>Одна карточка товара</li><li>Адаптация под маркетплейс</li></ul></div>
+          <div class="price-card reveal"><div class="pname">5 слайдов</div><div class="pval">1 990 ₽</div>
+            <ul><li>Полное оформление карточки</li><li>Единый стиль</li></ul></div>
+          <div class="price-card reveal"><div class="pname">10 слайдов</div><div class="pval">3 690 ₽</div>
+            <ul><li>Максимальная детализация</li><li>Инфографика и УТП</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING / TARIFFS -->
+  <section id="pricing">
+    <div class="container">
+      <span class="eyebrow reveal">Тарифы</span>
+      <h2 class="section-title reveal">Готовые пакеты <span class="grad-text">под задачу</span></h2>
+      <p class="section-sub reveal">Комплексные решения — выгоднее, чем заказывать услуги по отдельности.</p>
+
+      <div class="tariff-grid">
+        <div class="tariff-card reveal">
+          <h3>START</h3>
+          <ul class="incl">
+            <li>Логотип BASIC</li>
+            <li>Лендинг</li>
+          </ul>
+          <div class="tariff-price">4 290 ₽</div>
+          <a href="#contact" class="btn btn-ghost">Выбрать тариф</a>
+        </div>
+        <div class="tariff-card popular reveal">
+          <span class="badge">Самый популярный</span>
+          <h3>BUSINESS</h3>
+          <ul class="incl">
+            <li>Логотип STANDARD</li>
+            <li>Лендинг</li>
+            <li>5 слайдов карточки товара</li>
+          </ul>
+          <div class="tariff-price">6 490 ₽</div>
+          <a href="#contact" class="btn btn-primary">Выбрать тариф</a>
+        </div>
+        <div class="tariff-card reveal">
+          <h3>PREMIUM BUSINESS</h3>
+          <ul class="incl">
+            <li>Логотип PREMIUM</li>
+            <li>Многостраничный сайт</li>
+            <li>10 слайдов карточки товара</li>
+          </ul>
+          <div class="tariff-price">12 990 ₽</div>
+          <a href="#contact" class="btn btn-ghost">Выбрать тариф</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <span class="eyebrow reveal">Портфолио</span>
+      <h2 class="section-title reveal">Избранные <span class="grad-text">проекты</span></h2>
+      <p class="section-sub reveal">Место для будущих кейсов — сайты, логотипы и карточки товаров пополняются по мере реализации проектов.</p>
+
+      <div class="filter-row reveal">
+        <button class="tab active" data-filter="all">Все</button>
+        <button class="tab" data-filter="sites">Сайты</button>
+        <button class="tab" data-filter="logos">Логотипы</button>
+        <button class="tab" data-filter="cards">Карточки товаров</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid"></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <span class="eyebrow reveal">Как проходит работа</span>
+      <h2 class="section-title reveal">Прозрачный процесс <br class="lg-only">от идеи до результата</h2>
+
+      <div class="timeline reveal" id="timeline">
+        <div class="t-line"><div class="t-line-fill" id="tLineFill"></div></div>
+        <div class="t-step active">
+          <div class="t-num">1</div>
+          <div class="t-body"><h3>Обсуждение проекта</h3><p>Разбираем задачу, целевую аудиторию и цели — формируем ТЗ.</p></div>
+        </div>
+        <div class="t-step">
+          <div class="t-num">2</div>
+          <div class="t-body"><h3>Создание концепции</h3><p>Разрабатываю дизайн-концепцию на основе брифа и референсов.</p></div>
+        </div>
+        <div class="t-step">
+          <div class="t-num">3</div>
+          <div class="t-body"><h3>Правки</h3><p>Вносим корректировки согласно выбранному тарифу.</p></div>
+        </div>
+        <div class="t-step">
+          <div class="t-num">4</div>
+          <div class="t-body"><h3>Передача результата</h3><p>Передаю финальные файлы и готовый проект в срок.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section id="terms">
+    <div class="container">
+      <span class="eyebrow reveal">Условия работы</span>
+      <h2 class="section-title reveal">Как мы <span class="grad-text">начинаем работу</span></h2>
+      <div class="terms-box reveal">
+        <div class="terms-lead">Работа начинается после 100% предоплаты</div>
+        <ul class="terms-list">
+          <li><span class="check">✓</span>Бронирование места в графике</li>
+          <li><span class="check">✓</span>Начало работы после согласования ТЗ</li>
+          <li><span class="check">✓</span>Промежуточные результаты на каждом этапе</li>
+          <li><span class="check">✓</span>Правки согласно выбранному тарифу</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <span class="eyebrow reveal">Отзывы</span>
+      <h2 class="section-title reveal">Что говорят <span class="grad-text">клиенты</span></h2>
+    </div>
+    <div class="reviews-track-wrap reveal">
+      <div class="reviews-track" id="reviewsTrack"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container contact-wrap">
+      <span class="eyebrow reveal">Контакты</span>
+      <h2 class="section-title reveal">Обсудим <span class="grad-text">ваш проект?</span></h2>
+      <p class="section-sub reveal">Напишите в любой удобный канал — отвечаю быстро и обсуждаю детали лично.</p>
+      <div class="contact-buttons reveal">
+        <a href="https://telegram.me/kirilldezigner" target="_blank" rel="noopener" class="contact-card"><span class="contact-dot"></span>Telegram</a>
+        <a href="https://vk.com/kirilldezigner" target="_blank" rel="noopener" class="contact-card"><span class="contact-dot"></span>VK</a>
+        <a href="https://telegram.me/+LXeqWHy_mM0xZWE6" target="_blank" rel="noopener" class="contact-card"><span class="contact-dot"></span>Портфолио в Telegram</a>
+        <a href="https://vk.com/kirilldezignblog" target="_blank" rel="noopener" class="contact-card"><span class="contact-dot"></span>VK блог</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;width:100%;">
+    <p>© <span id="year"></span> Кирилл Брюханов. Все права защищены.</p>
+    <p>Дизайн и разработка — Кирилл Брюханов</p>
+  </div>
+</footer>
+
+<div class="to-top" id="toTop" aria-label="Наверх">↑</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Header on scroll ---------- */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 20);
+  document.getElementById('toTop').classList.toggle('show', window.scrollY > 700);
+});
+
+/* ---------- Mobile menu ---------- */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  burger.classList.toggle('active');
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+/* ---------- Back to top ---------- */
+document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ---------- Reveal on scroll (Intersection Observer) ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+}, {threshold:0.15});
+revealEls.forEach(el => io.observe(el));
+
+/* ---------- Hero title letter-by-letter fade ---------- */
+const heroTitle = document.getElementById('heroTitle');
+if (window.gsap) {
+  gsap.from(".hero-buttons, .hero-sub", {opacity:0, y:20, duration:0.9, delay:0.3, stagger:0.1, ease:"power3.out"});
+}
+
+/* ---------- Tabs: services ---------- */
+document.querySelectorAll('.tabs .tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const parent = tab.closest('.tabs');
+    parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const key = tab.dataset.tab;
+    document.querySelectorAll('.price-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === key));
+  });
+});
+
+/* ---------- Price card mouse glow ---------- */
+document.querySelectorAll('.price-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+/* ---------- Portfolio grid (placeholder slots) ---------- */
+const portfolioItems = [
+  {tag:'Сайт · Лендинг', cat:'sites'},
+  {tag:'Логотип · Brand', cat:'logos'},
+  {tag:'Карточка товара', cat:'cards'},
+  {tag:'Сайт · Визитка', cat:'sites'},
+  {tag:'Логотип · Identity', cat:'logos'},
+  {tag:'Карточка товара', cat:'cards'},
+];
+const grid = document.getElementById('portfolioGrid');
+portfolioItems.forEach((item, i) => {
+  const el = document.createElement('div');
+  el.className = 'p-item reveal';
+  el.dataset.cat = item.cat;
+  el.innerHTML = `<div class="p-fill" style="background:linear-gradient(135deg, rgba(108,92,231,${0.12+ (i%3)*0.05}), rgba(59,130,246,${0.1+(i%3)*0.04}));">
+      <span class="p-plus">+</span>
+    </div>
+    <span class="p-tag">${item.tag}</span>`;
+  el.addEventListener('click', () => alert('Проект скоро будет добавлен в портфолио.'));
+  grid.appendChild(el);
+  io.observe(el);
+});
+document.querySelectorAll('#portfolio .filter-row .tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#portfolio .filter-row .tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.p-item').forEach(p => {
+      p.style.display = (f === 'all' || p.dataset.cat === f) ? '' : 'none';
+    });
+  });
+});
+
+/* ---------- Reviews (duplicate track for seamless loop) ---------- */
+const reviews = [
+  {name:'Анна', city:'Москва', text:'Отличная работа — сайт получился именно таким, каким я его представляла. Быстро, по делу, с вниманием к деталям.'},
+  {name:'Дмитрий', city:'Санкт-Петербург', text:'Заказывал логотип и карточки товаров — результат превзошёл ожидания. Рекомендую как дизайнера, к которому можно вернуться.'},
+  {name:'Мария', city:'Казань', text:'Кирилл подробно вникает в задачу и предлагает решения, о которых сама не подумала бы. Спасибо за сайт!'},
+  {name:'Игорь', city:'Новосибирск', text:'Сделали лендинг за несколько дней — понятный процесс, честные сроки, приятный результат.'},
+];
+const track = document.getElementById('reviewsTrack');
+[...reviews, ...reviews].forEach(r => {
+  const card = document.createElement('div');
+  card.className = 'review-card';
+  card.innerHTML = `<div class="review-stars">★★★★★</div>
+    <p class="review-text">${r.text}</p>
+    <div class="review-who">
+      <div class="review-avatar">${r.name[0]}</div>
+      <div><div class="review-name">${r.name}</div><div class="review-city">${r.city}</div></div>
+    </div>`;
+  track.appendChild(card);
+});
+let trackX = 0;
+function animateReviews(){
+  trackX -= 0.4;
+  if (Math.abs(trackX) >= track.scrollWidth / 2) trackX = 0;
+  track.style.transform = `translateX(${trackX}px)`;
+  requestAnimationFrame(animateReviews);
+}
+requestAnimationFrame(animateReviews);
+
+/* ---------- Timeline fill on scroll ---------- */
+const timeline = document.getElementById('timeline');
+const tLineFill = document.getElementById('tLineFill');
+const steps = document.querySelectorAll('.t-step');
+window.addEventListener('scroll', () => {
+  const rect = timeline.getBoundingClientRect();
+  const vh = window.innerHeight;
+  let progress = (vh * 0.75 - rect.top) / rect.height;
+  progress = Math.max(0, Math.min(1, progress));
+  tLineFill.style.height = (progress * 100) + '%';
+  steps.forEach((s, i) => {
+    s.classList.toggle('active', progress > i / steps.length);
+  });
+});
+
+/* ---------- THREE.JS Hero scene: glass sphere + floating panels ---------- */
+(function initHero3D(){
+  const canvas = document.getElementById('hero-canvas');
+  if (!window.THREE || !canvas) return;
+  const wrap = canvas.parentElement;
+  let W = wrap.clientWidth, H = wrap.clientHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
+  camera.position.set(0, 0, 7);
+
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W, H);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0x8888ff, 0.6));
+  const p1 = new THREE.PointLight(0x6C5CE7, 6, 20);
+  p1.position.set(3, 3, 4);
+  scene.add(p1);
+  const p2 = new THREE.PointLight(0x3B82F6, 6, 20);
+  p2.position.set(-3, -2, 3);
+  scene.add(p2);
+
+  // Central glass-like sphere
+  const sphereGeo = new THREE.IcosahedronGeometry(1.7, 3);
+  const sphereMat = new THREE.MeshPhysicalMaterial({
+    color: 0x0d0d14,
+    metalness: 0.15,
+    roughness: 0.12,
+    transmission: 0.9,
+    thickness: 1.4,
+    transparent: true,
+    opacity: 0.95,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    ior: 1.4,
+    reflectivity: 0.6,
+    envMapIntensity: 1.2
+  });
+  // Fallback if transmission not supported well: still looks glassy via opacity/clearcoat
+  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+  scene.add(sphere);
+
+  const wireGeo = new THREE.IcosahedronGeometry(1.86, 1);
+  const wireMat = new THREE.MeshBasicMaterial({color:0x8f7dfb, wireframe:true, transparent:true, opacity:0.18});
+  const wire = new THREE.Mesh(wireGeo, wireMat);
+  scene.add(wire);
+
+  // Floating panel fragments
+  const panels = [];
+  const panelGeo = new THREE.PlaneGeometry(0.6, 0.9);
+  for (let i = 0; i < 6; i++) {
+    const mat = new THREE.MeshStandardMaterial({
+      color: i % 2 === 0 ? 0x6C5CE7 : 0x3B82F6,
+      transparent: true,
+      opacity: 0.28,
+      metalness: 0.4,
+      roughness: 0.3,
+      side: THREE.DoubleSide
+    });
+    const mesh = new THREE.Mesh(panelGeo, mat);
+    const angle = (i / 6) * Math.PI * 2;
+    const radius = 3.1;
+    mesh.position.set(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.6, Math.sin(angle * 2) * 1.2);
+    mesh.rotation.y = angle;
+    mesh.userData = {baseY: mesh.position.y, offset: i * 1.3};
+    scene.add(mesh);
+    panels.push(mesh);
+  }
+
+  let mouseX = 0, mouseY = 0, targetRotX = 0, targetRotY = 0;
+  wrap.addEventListener('mousemove', (e) => {
+    const r = wrap.getBoundingClientRect();
+    mouseX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    mouseY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  });
+
+  const clock = new THREE.Clock();
+  function animate(){
+    const t = clock.getElapsedTime();
+    targetRotY += (mouseX * 0.6 - targetRotY) * 0.04;
+    targetRotX += (mouseY * 0.4 - targetRotX) * 0.04;
+
+    sphere.rotation.y = t * 0.12 + targetRotY;
+    sphere.rotation.x = t * 0.06 + targetRotX;
+    wire.rotation.y = -t * 0.08;
+    wire.rotation.x = t * 0.05;
+
+    panels.forEach((mesh, i) => {
+      mesh.position.y = mesh.userData.baseY + Math.sin(t * 0.6 + mesh.userData.offset) * 0.2;
+      mesh.rotation.z = Math.sin(t * 0.3 + i) * 0.15;
+      mesh.rotation.y += 0.0025;
+    });
+
+    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.03;
+    camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.03;
+    camera.lookAt(0, 0, 0);
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    W = wrap.clientWidth; H = wrap.clientHeight;
+    camera.aspect = W / H;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W, H);
+  });
+})();
+</script>
+</body>
+</html>
